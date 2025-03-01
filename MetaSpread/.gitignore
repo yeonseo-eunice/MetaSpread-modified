@@ -1,0 +1,5 @@
+__pycache__/
+Simulations/*
+dist/*
+.vscode/launch.json
+testCellsData.csv
