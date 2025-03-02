@@ -26,15 +26,17 @@ def save_configs(simulations_dir, new_simulation_folder, config_var_names, max_s
 
 
 def run_simulation(simulation_id, max_steps, data_collection_period, save_path=Path("."), loaded_simulation_path=""):
-    n = random.randint(1, 100)
+    # n = random.randint(1, 100)
     # load configs file from a previous simulation or loads the general configs file
-    print(loaded_simulation_path)
+    # print(loaded_simulation_path)
     loaded_simulation_path= loaded_simulation_path.strip('\"')
     if loaded_simulation_path != "":
         configs_path = os.path.join(loaded_simulation_path, "configs.csv")
         config_var_names = metaspread.configs.load_simulation_configs_for_reloaded_simulation(configs_path)
     else:
-        configs_path = "simulations_configs.csv"
+        package_dir = os.path.dirname(metaspread.__file__)
+        configs_path = os.path.join(package_dir, "simulations_configs.csv")
+        # print(f"simrunner.py configs_path: {configs_path}")
         config_var_names = metaspread.configs.init_simulation_configs(configs_path)
     
     # Parameters for this simulation

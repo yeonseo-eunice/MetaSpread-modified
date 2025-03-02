@@ -10,13 +10,24 @@ def init_simulation_configs(path):
         string: path
         return: array of all the names of the variables
     """ 
+    # print(f"init_simulation_configs called: {path}")
     df_configs = pd.read_csv(path, header=0, converters={"Values": ast.literal_eval})
+    # print("======df_configs inside metaspread.configs=======")
+    # print(df_configs.head(10))
+    # print("======df_configs inside metaspread.configs=======")
     if len(df_configs) < 31:
         raise Exception("Less than 31 configuration options! Are there some missing?")
     if len(df_configs) > 31:
         raise Exception("More than 31 configuration options!")
     dict_configs = dict(zip(df_configs["Names"], df_configs["Values"]))
     globals().update(dict_configs)  
+    
+
+    # print('------globals start-------')
+    # for var in list(df_configs["Names"]):
+    #     print(f"{var}: {globals()[var]}")
+    # print('------globals end-----------')
+
     error_string = ""
     if sum(extravasation_probs) != 1:
         error_string += "Extravasation probabilities must sum 1!\n"
